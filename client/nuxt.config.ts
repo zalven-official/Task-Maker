@@ -23,9 +23,6 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@vee-validate/nuxt'
   ],
-  css: [
-    // 'vue-datepicker/dist/style.css',
-  ],
   pinia: {
     storesDirs: ['./stores/**']
   },

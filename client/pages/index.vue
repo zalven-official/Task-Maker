@@ -1,7 +1,13 @@
 <template>
-  <div class="mb-48">
-    <div>
-      hello
-    </div>
-  </div>
+  <NuxtLayout>
+    <template #header>
+      <TaskNavbar />
+    </template>
+    <template #body>
+      <div>
+
+      </div>
+    </template>
+  </NuxtLayout>
 </template>
+

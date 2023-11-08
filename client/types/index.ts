@@ -1,5 +1,6 @@
 import type { RouteParamsRaw } from 'vue-router'
 
+
 export * from './notification.type'
 export * from './user.type'
 export * from './task.type'
@@ -12,7 +13,6 @@ export interface Breadcrumbs {
   text: String
   params?: RouteParamsRaw,
 }
-
 
 export enum Gender {
   Male = "Male",
@@ -30,6 +30,7 @@ export enum CivilStatus {
 
 export interface MenuItem {
   label: string;
-  icon: string;
+  icon?: string;
   tip?: string | null;
+  link?: string,
 };

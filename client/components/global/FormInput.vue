@@ -9,8 +9,8 @@
       <span class="label-text-alt text-xs max-w-xs">{{ labelAlt }}</span>
     </label>
 
-    <template v-if="type === 'text'">
-      <input type="text" :placeholder="placeholder" class="input input-bordered w-full shadow-sm"
+    <template v-if="type === 'text' || type === 'password'">
+      <input :type="type" :placeholder="placeholder" class="input input-bordered w-full shadow-sm" autocomplete="on"
         :class="{ 'input-error': errorMessage }" v-model="value" />
     </template>
 

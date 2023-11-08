@@ -1,6 +1,6 @@
 <template>
   <div class="w-full flex items-center justify-center bg-neutral p-5 shadow-sm rounded-md py-10">
-    <form @submit="submitForm" class="w-full max-w-md">
+    <form @submit.prevent="submitForm" class="w-full max-w-md">
       <FormInput label="Title" label-alt="What is your task title?" placeholder="Sample Title" type="text" name="title"
         :required="true" :disabled="readonly" />
       <FormInput label="Description" label-alt="Task Description" placeholder="Creating something..." type="textarea"
@@ -75,7 +75,7 @@ const { tasksStatus, createTask, updateTask, deleteTask, getTask } = useTaskStor
 onMounted(() => {
   initTask()
 })
-onBeforeRouteUpdate((newRoute) => {
+onBeforeRouteUpdate(() => {
   initTask()
 })
 
