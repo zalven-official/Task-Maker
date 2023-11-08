@@ -4,8 +4,10 @@
       <TaskNavbar />
     </template>
     <template #body>
-      <Breadcrumbs :breadcrumbs="breadcrumbs" />
-      <TaskForm :readonly="readonly" :id="id" />
+      <div class="w-full">
+        <Breadcrumbs :breadcrumbs="breadcrumbs" />
+        <TaskForm :readonly="readonly" :id="id" />
+      </div>
     </template>
   </NuxtLayout>
 </template>
