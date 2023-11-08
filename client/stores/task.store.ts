@@ -6,55 +6,56 @@ export const useTaskStore = defineStore('task', () => {
 
   const tasks = ref<Task[]>([])
 
+  const { errorToast, successToast } = useToastStore()
+  const router = useRouter()
+  const route = useRoute();
+
   const tasksStatus = ref<ListOfTaskStatus>([
     { value: TaskStatus.COMPLETE, text: "Complete" },
     { value: TaskStatus.INCOMPLETE, text: "Incomplete" },
   ])
 
   const fetchTasks = async () => {
-    tasks.value = [
-      {
-        id: '1',
-        title: 'Task 1',
-        description: 'Description for Task 1',
-        dueDate: new Date(),
-        completionStatus: TaskStatus.COMPLETE,
-        createdAt: new Date(),
-      },
-      {
-        id: '2',
-        title: 'Task 2',
-        description: 'Description for Task 2',
-        dueDate: new Date(),
-        completionStatus: TaskStatus.INCOMPLETE,
-        createdAt: new Date(),
-      },
-    ]
+    const { data, error } = await useApiFetch<{ data: Task[], message: String }>('/api/tasks', { method: 'GET', query: route.query })
+    if (error.value) {
+      errorToast(error.value.message)
+      return
+    }
+    if (data.value?.data)
+      tasks.value = data.value?.data
   }
 
-  const getTask = async (taskId: string): Promise<Task> => {
-    return {
-      id: '2',
-      title: 'Task 2',
-      description: 'Description for Task 2',
-      dueDate: new Date(),
-      completionStatus: TaskStatus.INCOMPLETE,
-      createdAt: new Date(),
+  const getTask = async (taskId: string): Promise<Task | undefined> => {
+    const { data, error } = await useApiFetch<{ data: Task }>(`/api/tasks/${taskId}`, { method: 'GET' })
+    if (error.value) {
+      errorToast(error.value.message)
+      router.push('/task')
     }
+    return data.value?.data
   }
 
   const createTask = async (newTask: Task) => {
-    console.log("createTask")
+    const result = await useApiFetch('/api/tasks', { body: newTask, method: 'POST' })
+
     await fetchTasks()
+    router.push('/task')
+    return result
   }
 
   const updateTask = async (updatedTask: Task) => {
-    console.log("updateTask")
+    const result = await useApiFetch(`/api/tasks/${updatedTask.id}`, { body: updatedTask, method: 'PUT' })
     await fetchTasks()
+    successToast('Successfully update task')
+    return result
   }
 
   const deleteTask = async (taskId: string) => {
-    console.log("deleteTask")
+    const { error } = await useApiFetch(`/api/tasks/${taskId}`, { method: 'DELETE' })
+    if (error.value) {
+      errorToast(error.value.message)
+      return
+    }
+    router.push('/task')
     await fetchTasks()
   };
 

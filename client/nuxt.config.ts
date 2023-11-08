@@ -32,5 +32,9 @@ export default defineNuxtConfig({
   plugins: [
     "~/plugins/fontawesome.plugin.ts",
   ],
-
+  runtimeConfig: {
+    public: {
+      baseURL: process.env.BASE_URL || 'http://localhost:8000',
+    },
+  },
 })

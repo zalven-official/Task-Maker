@@ -11,16 +11,17 @@
 
     <template v-if="type === 'text' || type === 'password'">
       <input :type="type" :placeholder="placeholder" class="input input-bordered w-full shadow-sm" autocomplete="on"
-        :class="{ 'input-error': errorMessage }" v-model="value" />
+        :class="{ 'input-error': errorMessage }" v-model="value" :disabled="disabled" />
     </template>
 
     <template v-else-if="type === 'textarea'">
       <textarea :placeholder="placeholder" class="textarea textarea-bordered w-full shadow-sm"
-        :class="{ 'input-error': errorMessage }" v-model="value"></textarea>
+        :class="{ 'input-error': errorMessage }" v-model="value" :disabled="disabled"></textarea>
     </template>
 
     <template v-else-if="type === 'select'">
-      <select v-model="value" class="select select-bordered w-full" :class="{ 'input-error': errorMessage }">
+      <select v-model="value" class="select select-bordered w-full" :class="{ 'input-error': errorMessage }"
+        :disabled="disabled">
         <option disabled value="">Select an option</option>
         <option v-for="option in options" :key="option.value" :value="option.value">{{ option.text }}</option>
       </select>
@@ -28,7 +29,7 @@
 
     <template v-else-if="type === 'date'">
       <Datepicker v-model="value" input-class-name="input input-bordered w-full shadow-sm pl-3" class="bg-none"
-        :class="{ 'input-error': errorMessage }">
+        :class="{ 'input-error': errorMessage }" :disabled="disabled">
       </Datepicker>
     </template>
 

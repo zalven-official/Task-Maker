@@ -1,7 +1,7 @@
 <template>
   <div class="relative w-full flex items-center justify-end">
     <input class="input border-base-300 input-sm p-5 input-bordered w-full bg-neutral rounded-full pl-7 z-0"
-      :placeholder="placeholder" v-model="searchValue" />
+      :placeholder="placeholder" v-model="searchValue" @keyup.enter="handleSearchClick" />
     <button
       class="absolute h-5/6 bg-primary w-28 rounded-full mr-1 flex justify-center items-center text-base-100 text-sm hover:bg-primary-focus"
       @click="handleSearchClick">

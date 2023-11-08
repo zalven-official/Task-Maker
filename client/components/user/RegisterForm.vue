@@ -39,9 +39,9 @@ const { handleSubmit, setErrors } = useForm<UserRegister>({
 
 const { register } = useUserStore()
 const submitForm = handleSubmit(async (values: UserRegister) => {
-  const { error } = await register(values)
-  if (error)
-    setErrors({ ...error?.value?.data.errors })
+  const result = await register(values)
+  if (result?.error)
+    setErrors({ ...result.error?.value?.data.errors })
 });
 
 </script>

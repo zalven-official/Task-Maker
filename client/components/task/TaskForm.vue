@@ -54,7 +54,7 @@ const props = defineProps({
   id: { type: String, default: '', required: false },
 });
 
-const { handleSubmit, setValues } = useForm<Task>({
+const { handleSubmit, setValues, setErrors } = useForm<Task>({
   initialValues: {
     id: '',
     title: '',
@@ -81,13 +81,16 @@ onBeforeRouteUpdate(() => {
 
 const initTask = async () => {
   if (props.id) {
-    setValues(await getTask(props.id))
+    const tasks = await getTask(props.id)
+    tasks && setValues(tasks)
   }
 }
 
 const submitForm = handleSubmit(async (value: Task) => {
   if (props.readonly) return
-  props.id ? await createTask(value) : await updateTask(value)
+  const { error } = props.id ? await updateTask(value) : await createTask(value)
+  if (error)
+    setErrors({ ...error?.value?.data.errors })
 });
 
 </script>

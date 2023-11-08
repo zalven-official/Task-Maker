@@ -53,10 +53,21 @@
 <script setup lang="ts">
 import { getTasksPages } from './task.constants'
 
-const searchModel = ref<string>('');
+const router = useRouter()
+const route = useRoute()
+
+
 const userStore = useUserStore()
 const { logout } = userStore
 const { user, isLoggedIn } = storeToRefs(userStore)
+const { fetchTasks } = useTaskStore()
 
-const handleSearch = (value: string) => { };
+const searchModel = ref<string>(route.query.search as string);
+
+const handleSearch = (value: string) => {
+  router.push({ query: { search: value } })
+  fetchTasks()
+}
+
+
 </script>
