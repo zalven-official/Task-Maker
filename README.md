@@ -19,7 +19,13 @@ Before you begin, make sure you have the following prerequisites:
 git clone https://github.com/zalven-official/Task-Maker.git
 ```
 
-### 2. Configure Database
+### 3. Copy the environment variables
+```shell
+cd Task-Maker/server
+cp .env.example .env
+```
+
+### 4. Configure Database
 
 Open the `.env` file in the `Task-Maker/server` directory and configure your MySQL database settings:
 
@@ -35,7 +41,6 @@ DB_PASSWORD=your_database_password
 ### 3. Install Dependencies
 
 ```shell
-cd Task-Maker/server
 composer install
 ```
 
@@ -45,7 +50,12 @@ composer install
 php artisan migrate
 ```
 
-### 5. Start the Laravel Server
+### 5. Run Seeder
+```shell
+php artisan migrate --seed
+```
+
+### 6. Start the Laravel Server
 
 ```shell
 php artisan serve
@@ -67,14 +77,15 @@ cd Task-Maker/client
 yarn install
 ```
 
-### 3. Configure API Base URL
+### 3. Copy the environment variables
 
-In the `Task-Maker/client/nuxt.config.js` file, configure the base URL for your Laravel API:
+```shell
+cp .env.example .env
+```
 
-```javascript
-axios: {
-  baseURL: 'http://localhost:8000/api', // Update with your API URL
-},
+### 4. Configure API Base URL inside ```.env```
+```ini
+BASE_URL='http://localhost:8000/api'
 ```
 
 ### 4. Start the Nuxt.js Development Server
@@ -88,9 +99,3 @@ Your Nuxt.js client will be accessible at `http://localhost:3000`.
 ## Using the Task-Maker Project
 
 You can now use your Task-Maker project with the Laravel API serving as the backend and the Nuxt.js client for the frontend. Make sure to customize the client and server code to match your specific requirements.
-
-## Additional Configuration
-
-If you have more specific configurations or features you want to add to your Laravel or Nuxt.js setup, feel free to expand upon this documentation. Additionally, you can include information on deployment, testing, and any other relevant details specific to your project.
-
-This is a basic outline to help you get started. Be sure to replace placeholders with your actual database and API details. You can further enhance this documentation with more detailed instructions and explanations as needed.
