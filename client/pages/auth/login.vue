@@ -8,9 +8,12 @@
     </template>
   </NuxtLayout>
 </template>
+
+
 <script setup lang="ts">
 import LoginForm from '@/components/user/LoginForm.vue'
 definePageMeta({
   middleware: ['guest']
 })
+
 </script>

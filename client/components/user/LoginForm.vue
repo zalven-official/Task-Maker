@@ -16,7 +16,7 @@ import { useForm } from 'vee-validate';
 import * as Yup from 'yup';
 import { type UserLogin } from '~/types';
 
-const { handleSubmit } = useForm<UserLogin>({
+const { handleSubmit, setErrors } = useForm<UserLogin>({
   initialValues: {
     email: '',
     password: '',
@@ -30,6 +30,7 @@ const { handleSubmit } = useForm<UserLogin>({
 const { login } = useUserStore()
 const submitForm = handleSubmit(async (values: UserLogin) => {
   const { error } = await login(values)
-  console.log(error)
+  if (error)
+    setErrors({ ...error?.value?.data.errors })
 });
 </script>

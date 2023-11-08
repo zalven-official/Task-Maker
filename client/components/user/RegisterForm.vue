@@ -18,7 +18,7 @@ import { useForm } from 'vee-validate';
 import * as Yup from 'yup';
 import { type UserRegister } from '~/types';
 
-const { handleSubmit } = useForm<UserRegister>({
+const { handleSubmit, setErrors } = useForm<UserRegister>({
   initialValues: {
     name: '',
     email: '',
@@ -40,7 +40,8 @@ const { handleSubmit } = useForm<UserRegister>({
 const { register } = useUserStore()
 const submitForm = handleSubmit(async (values: UserRegister) => {
   const { error } = await register(values)
-  console.log(error)
+  if (error)
+    setErrors({ ...error?.value?.data.errors })
 });
 
 </script>

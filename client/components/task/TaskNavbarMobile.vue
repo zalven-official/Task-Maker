@@ -11,7 +11,7 @@
           <div class="w-14 rounded-full p-2">
             <div class="avatar placeholder">
               <div class="bg-primary text-base-100 rounded-full w-10">
-                <span class="text-xs">{{ user?.name.charAt(0) }}</span>
+                <span class="text-lg">{{ user?.name.charAt(0) }}</span>
               </div>
             </div>
           </div>
@@ -33,7 +33,6 @@
       <hr>
       <button class="btn btn-primary mt-5" @click="logout" v-if="isLoggedIn">Logout</button>
       <Trademark />
-
     </ul>
   </div>
 </template>
