@@ -14,6 +14,5 @@ export const getTasksPages = computed((): MenuItem[] => {
   const { isLoggedIn } = storeToRefs(useUserStore())
   if (isLoggedIn.value)
     return [...taskPages]
-
   return [...loginPages, ...taskPages]
 })
