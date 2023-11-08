@@ -1,9 +1,9 @@
 <template>
   <Navbar>
     <template #start>
-      <a class="btn btn-ghost normal-case text-xl">
+      <nuxt-link to="/" class="btn btn-ghost normal-case text-xl bg-white">
         <img src="/images/goteam-logo-dark.png" width="100" alt="goteam-logo" />
-      </a>
+      </nuxt-link>
       <ul class="menu menu-horizontal px-1 hidden md:flex">
         <li><a class="opacity-70 hover:opacity-100 text-sm">Careers</a></li>
         <li><a class="opacity-70 hover:opacity-100 text-sm">Find your Role</a></li>

@@ -1,10 +1,9 @@
 <template>
   <Navbar>
     <template #start>
-      <a class="btn btn-ghost normal-case text-xl bg-white">
+      <nuxt-link to="/" class="btn btn-ghost normal-case text-xl bg-white">
         <img src="/images/goteam-logo-dark.png" width="100" alt="goteam-logo" />
-      </a>
-
+      </nuxt-link>
       <client-only>
         <ul class="menu menu-horizontal px-1 hidden md:flex">
           <li v-for="(value, key) in getTasksPages" :key="key">
@@ -14,13 +13,10 @@
           </li>
         </ul>
       </client-only>
-
     </template>
-
     <template #center>
       <Searchbar v-model="searchModel" @search="handleSearch" placeholder="Search for task" />
     </template>
-
     <template #end>
       <input id="task-drawer" type="checkbox" class="drawer-toggle" />
       <div class="drawer-content">
