@@ -16,9 +16,11 @@
       </client-only>
 
     </template>
+
     <template #center>
       <Searchbar v-model="searchModel" @search="handleSearch" placeholder="Search for task" />
     </template>
+
     <template #end>
       <input id="task-drawer" type="checkbox" class="drawer-toggle" />
       <div class="drawer-content">
@@ -64,9 +66,9 @@ const { fetchTasks } = useTaskStore()
 
 const searchModel = ref<string>(route.query.search as string);
 
-const handleSearch = (value: string) => {
-  router.push({ query: { search: value } })
-  fetchTasks()
+const handleSearch = async (value: string) => {
+  await router.push({ path: '/task', query: { search: value } })
+  fetchTasks({ search: value })
 }
 
 

@@ -5,24 +5,26 @@ import { type Task, TaskStatus, type ListOfTaskStatus } from '~/types'
 export const useTaskStore = defineStore('task', () => {
 
   const tasks = ref<Task[]>([])
-
   const { errorToast, successToast } = useToastStore()
+
   const router = useRouter()
-  const route = useRoute();
 
   const tasksStatus = ref<ListOfTaskStatus>([
     { value: TaskStatus.COMPLETE, text: "Complete" },
     { value: TaskStatus.INCOMPLETE, text: "Incomplete" },
   ])
 
-  const fetchTasks = async () => {
-    const { data, error } = await useApiFetch<{ data: Task[], message: String }>('/api/tasks', { method: 'GET', query: route.query })
+  const fetchTasks = async (query?: object) => {
+
+    const { data, error } = await useApiFetch<{ data: Task[], message: String }>('/api/tasks',
+      { method: 'GET', query })
     if (error.value) {
       errorToast(error.value.message)
       return
     }
-    if (data.value?.data)
+    if (data.value?.data) {
       tasks.value = data.value?.data
+    }
   }
 
   const getTask = async (taskId: string): Promise<Task | undefined> => {
@@ -36,7 +38,6 @@ export const useTaskStore = defineStore('task', () => {
 
   const createTask = async (newTask: Task) => {
     const result = await useApiFetch('/api/tasks', { body: newTask, method: 'POST' })
-
     await fetchTasks()
     router.push('/task')
     return result

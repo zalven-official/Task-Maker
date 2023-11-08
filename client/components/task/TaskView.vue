@@ -15,12 +15,14 @@ import type { TableAction, TableColumn, Task } from '~/types';
 import { formatDateToCustomString } from '@/utils/functions'
 
 const router = useRouter()
+const route = useRoute()
+
 const taskStore = useTaskStore()
 const { fetchTasks, createTask, updateTask, deleteTask, getTask } = taskStore;
 const { tasks } = storeToRefs(taskStore)
 
 onMounted(() => {
-  fetchTasks()
+  fetchTasks(route.query)
 })
 
 

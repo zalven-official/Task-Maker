@@ -14,7 +14,6 @@ function ApiFetch<T>(path: string | (() => string), options: UseFetchOptions<T> 
     }
   }
   const normalizedPath = typeof path === 'string' ? (path.startsWith('/') ? path.slice(1) : path) : path;
-  console.log(`${config.public.baseURL}/${normalizedPath}`)
   return useFetch(`${config.public.baseURL}/${normalizedPath}`, {
     credentials: 'include',
     watch: false,
@@ -23,7 +22,16 @@ function ApiFetch<T>(path: string | (() => string), options: UseFetchOptions<T> 
   })
 }
 export async function useApiFetch<T>(path: string | (() => string), options: UseFetchOptions<T> = {}) {
-  if (process.client) await ApiFetch('/sanctum/csrf-cookie')
-  return ApiFetch(path, options)
+  const globalStore = useGlobalStore()
 
+  const { loadingCount } = storeToRefs(globalStore)
+  const { setLoadingCountValue } = globalStore
+
+  setLoadingCountValue(loadingCount.value + 1)
+
+  if (process.client) await ApiFetch('/sanctum/csrf-cookie')
+  const result = await ApiFetch(path, options)
+
+  setLoadingCountValue(loadingCount.value - 1)
+  return result
 }

@@ -7,7 +7,7 @@
       <slot name=" center" />
     </div>
     <div class="navbar-end md:w-1/2 xl:5/16 w-full">
-      <div class="xl:hidden block w-full lg:mr-10 mr-0 ">
+      <div class=" block w-full lg:mr-10 mr-0 ">
         <slot name="center" />
       </div>
       <slot name="end" />

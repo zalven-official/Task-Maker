@@ -88,9 +88,9 @@ const initTask = async () => {
 
 const submitForm = handleSubmit(async (value: Task) => {
   if (props.readonly) return
-  const { error } = props.id ? await updateTask(value) : await createTask(value)
-  if (error)
-    setErrors({ ...error?.value?.data.errors })
+  const result = props.id ? await updateTask(value) : await createTask(value)
+  if (result.error)
+    setErrors({ ...result.error?.value?.data.errors })
 });
 
 </script>
